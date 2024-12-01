@@ -5,9 +5,13 @@
   "main": "app.js",
   "license": "MIT",
   "type": "module",
+  "engines": {
+   "node": ">=16"
+  },
   "scripts": {
     "start":"node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "postinstall": "echo 'Skipping problematic dependencies'"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
