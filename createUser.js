@@ -6,8 +6,8 @@ import { connectDB } from "./config/connectdb.js";
 const createUser = async () => {
   try {
 
-    const username = "HotelAtlantico";
-    const password = "hot333lat44**T";
+    const username = "Cotel";
+    const password = "Cot3lvg**.";
     await connectDB ();
 
     // Verificar si el usuario ya existe

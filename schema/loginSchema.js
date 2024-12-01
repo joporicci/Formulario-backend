@@ -8,11 +8,11 @@ export const loginSchema = Joi.object({
       "string.base": "El nombre de usuario debe ser un texto.",
       "string.empty": "El nombre de usuario es obligatorio.",
       "string.min": "El nombre de usuario debe tener al menos 3 caracteres.",
-      "string.max":"El nombre de usuario debe tener un máximo de 100 caracteres",
+      "string.max":"El nombre de usuario debe tener un máximo de 50 caracteres",
       "any.required": "El nombre de usuario es obligatorio.",
     }),
   password: Joi.string()
-    .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
+    .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*.?&])[A-Za-z\d@$!%*?&]{8,}$/)
     .required()
     .messages({
       "string.pattern.base":

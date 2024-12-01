@@ -12,18 +12,6 @@ export const loginUser = async (req, res) => {
   
     try {
        
-       /* const {error}= loginSchema.validate({username,password})
-         if(error){
-        return res.status(400).json({
-          message:"Errores de validación",
-          errors:error.details.map((err)=>({
-          field: err.context.key,
-          message:err.message
-        }))
-      })
-      }*/
-  
-     
       const foundUser = await User.findOne({ username });
   
       // NO ENCUENTRA EL USUARIO EN LA DB
