@@ -6,17 +6,13 @@ import { loginSchema } from "../schema/loginSchema.js";
 
 export const loginUser = async (req, res) => {
 
-    console.log("Entra");
     const { username, password } = req.body;
-
-  
     try {
        
       const foundUser = await User.findOne({ username });
   
       // NO ENCUENTRA EL USUARIO EN LA DB
       if (!foundUser) { 
-        console.log('Usuario no encontrado');
         return res.status(404).json({ message: 'Credenciales inválidas' });
       }
       // EL USUARIO ENVIÓ EL FORMULARIO // LOGGED = TRUE 
@@ -31,7 +27,6 @@ export const loginUser = async (req, res) => {
       }
       // CONTRASEÑA INCORRECTA // SUMO INTENTOS INCORRECTOS Y EVALUO SI BLOQUEO O NO
 
-      console.log(foundUser.password)
       const isValidPassword = await bcrypt.compare(password,foundUser.password);
       if(!isValidPassword){
         foundUser.wrongtries+=1;
@@ -45,7 +40,7 @@ export const loginUser = async (req, res) => {
         return res.status(401).json({message:"Error credenciales invalidas"});
       }
 
-      console.log('Usuario autenticado correctamente');
+      
       foundUser.wrongtries = 0;
       await foundUser.save();
       const token = await createToken({id:foundUser._id},{username:foundUser.username})
@@ -63,7 +58,7 @@ export const loginUser = async (req, res) => {
   
       // Continuar con el resto del flujo...
     } catch (error) {
-      console.error('Error en loginUser:', error.message);
+      
       res.status(500).json({ message: 'ERR_SERVER_ERROR' });
     }
   };
@@ -78,7 +73,7 @@ export const loginUser = async (req, res) => {
   
       return res.status(200).json({ message: 'Sesión cerrada correctamente' });
     } catch (error) {
-      console.error('Error al cerrar sesión:', error.message);
+
       res.status(500).json({ message: 'Error al cerrar sesión', error: error.message });
     }
   };
