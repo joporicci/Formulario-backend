@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import ExpressMongoSanitize from "express-mongo-sanitize";
+
 import helmet from "helmet";
 import { connectDB } from "./config/connectdb.js";
 import dotenv from "dotenv";
@@ -28,9 +28,7 @@ app.use(
   })
 );
 
-// Seguridad y limpieza
-app.use(ExpressMongoSanitize()); // Limpia los datos para prevenir inyecciones NoSQL
-app.use(hpp()); // Previene contaminación de parámetros HTTP
+
 
 // Configuración de Helmet para encabezados de seguridad
 app.use(helmet());
@@ -72,7 +70,6 @@ app.use((err, req, res, next) => {
 
 // Configuración del puerto
 const PORT = process.env.PORT || 4000;
-
 
 
 // Inicio del servidor
