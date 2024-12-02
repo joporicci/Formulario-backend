@@ -73,6 +73,10 @@ app.use((err, req, res, next) => {
 // Configuración del puerto
 const PORT = process.env.PORT || 4000;
 
+app.get('/', (req, res) => {
+    res.send('¡Hola desde Express desplegado en Vercel!');
+  });
+
 // Inicio del servidor
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
