@@ -1,5 +1,6 @@
 import Joi from "joi";
-export const loginSchema = Joi.object({
+
+ const loginSchema = Joi.object({
   username: Joi.string()
     .min(3)
     .max(100)
@@ -21,3 +22,5 @@ export const loginSchema = Joi.object({
       "any.required": "La contraseña es obligatoria.",
     }),
 });
+
+export default loginSchema;
