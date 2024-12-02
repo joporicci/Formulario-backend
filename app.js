@@ -10,6 +10,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import hpp from "hpp";
 import Limiter from "./middleware/limiter.js"; // Middleware personalizado de rate limit
+import ExpressMongoSanitize from "express-mongo-sanitize";
 
 dotenv.config();
 
@@ -44,7 +45,7 @@ app.use(
 );
 app.use(helmet.noSniff()); // Evita que el navegador intente adivinar el tipo de archivo
 app.use(helmet.frameguard({ action: "deny" })); // Previene que la app sea embebida en iframes
-
+app.use(ExpressMongoSanitize())
 // Rate limiting
 app.use(Limiter); // Middleware para limitar solicitudes
 

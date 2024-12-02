@@ -9,6 +9,7 @@ const createAdmin = async () => {
     const username = "AntonioRoncoroni";
     const password = "CotelAdmin2024";
     await connectDB ();
+    
 
     // Verificar si el usuario ya existe
     const existingAdmin = await Admin.findOne({ username });
