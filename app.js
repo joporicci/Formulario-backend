@@ -23,7 +23,7 @@ const app = express();
 // Middlewares globales
 app.use(express.json({ limit: "10kb" })); // Limita el tamaño del body a 10 KB
 const corsOptions = {
-  origin: ['https://cotel-publicidad.vercel.app'], // Ajusta a tu dominio
+  origin:process.env.FRONTEND_URL, // Ajusta a tu dominio
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
   credentials: true,
 };

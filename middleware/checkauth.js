@@ -1,3 +1,5 @@
+ import jwt from "jsonwebtoken";
+ 
  const authenticate = (req, res, next) => {
   console.log('Headers:', req.headers);
   console.log('Raw Headers:', req.rawHeaders);
