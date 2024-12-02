@@ -33,6 +33,7 @@ app.use(
 
 app.use(ExpressMongoSanitize())
 // Rate limiting
+app.set('trust proxy', 1); 
 app.use(Limiter); // Middleware para limitar solicitudes
 
 // Configuración para archivos estáticos
