@@ -1,17 +1,15 @@
 import User from "../models/user.js"
 import createToken from "../libs/createtoken.js";
 import bcrypt from "bcrypt";
-import loginSchema from "../schema/loginSchema.js"
+
 
 
 export const loginUser = async (req, res) => {
 
     const { username, password } = req.body;
     try {
-
-      const {error}= loginSchema.validate({username,password});
-      if(error){
-        return res.status(401).json({message:"Unauthorized"});
+      if(!username||!password){
+        return res.status(401).json({message:"No llegaron los datos"})
       }
       const foundUser = await User.findOne({ username });
   
