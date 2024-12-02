@@ -13,8 +13,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js",
-    "postinstall": "echo 'Skipping problematic dependencies'"
+    "dev": "nodemon app.js"
   },
   "dependencies": {
     "base64-js": "^1.5.1",
@@ -28,6 +27,7 @@
     "hpp": "^0.2.3",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.8.3",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.16",
     "nodemon": "^3.1.7",
