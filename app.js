@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 
-import helmet from "helmet";
+
 import { connectDB } from "./config/connectdb.js";
 import dotenv from "dotenv";
 import loginRouter from "./routes/auth.js";
@@ -22,12 +22,12 @@ const app = express();
 
 // Middlewares globales
 app.use(express.json({ limit: "10kb" })); // Limita el tamaño del body a 10 KB
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000", // URL del frontend
-    credentials: true, // Permite enviar cookies en solicitudes
-  })
-);
+const corsOptions = {
+  origin: ['https://cotel-publicidad.vercel.app'], // Ajusta a tu dominio
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 
 
