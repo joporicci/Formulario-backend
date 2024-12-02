@@ -44,10 +44,7 @@ app.use("/uploads", express.static(path.join(__dirname, "../uploads"))); // Serv
 app.use("/auth", loginRouter);
 app.use("/api", formRouter);
 
-// Middleware para rutas no encontradas
-app.use((req, res, next) => {
-  res.status(404).json({ ok: false, message: "Ruta no encontrada" });
-});
+
 
 // Manejo de errores global
 app.use((err, req, res, next) => {
