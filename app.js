@@ -8,6 +8,7 @@ import loginRouter from "./routes/auth.js";
 import formRouter from "./routes/form.js";
 import path from "path";
 import { fileURLToPath } from "url";
+
 import Limiter from "./middleware/limiter.js"; // Middleware personalizado de rate limit
 import ExpressMongoSanitize from "express-mongo-sanitize";
 
@@ -30,20 +31,6 @@ app.use(
 
 
 
-// Configuración de Helmet para encabezados de seguridad
-app.use(helmet());
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "trusted-scripts.com"], // Configura dominios confiables
-      objectSrc: ["'none'"],
-      upgradeInsecureRequests: [], // Habilita la actualización automática de HTTP a HTTPS
-    },
-  })
-);
-app.use(helmet.noSniff()); // Evita que el navegador intente adivinar el tipo de archivo
-app.use(helmet.frameguard({ action: "deny" })); // Previene que la app sea embebida en iframes
 app.use(ExpressMongoSanitize())
 // Rate limiting
 app.use(Limiter); // Middleware para limitar solicitudes
