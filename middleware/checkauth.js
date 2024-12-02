@@ -1,4 +1,4 @@
-const authenticate = (req, res, next) => {
+ const authenticate = (req, res, next) => {
   console.log('Headers:', req.headers);
   console.log('Raw Headers:', req.rawHeaders);
   
@@ -24,3 +24,5 @@ const authenticate = (req, res, next) => {
     return res.status(403).json({ message: 'Token inválido o expirado' });
   }
 };
+
+export default authenticate;
