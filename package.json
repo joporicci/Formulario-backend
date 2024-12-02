@@ -6,14 +6,18 @@
   "license": "MIT",
   "type": "module",
   "engines": {
-   "node": ">=16"
+    "node": ">=16"
+  },
+  "resolutions": {
+    "node-base64": "0.0.1"
   },
   "scripts": {
-    "start":"node app.js",
+    "start": "node app.js",
     "dev": "nodemon app.js",
     "postinstall": "echo 'Skipping problematic dependencies'"
   },
   "dependencies": {
+    "base64-js": "^1.5.1",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "express": "^4.21.1",
