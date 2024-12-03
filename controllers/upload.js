@@ -3,7 +3,7 @@ import  multer from "multer";
 import dotenv from "dotenv";
 import path from "path";
 dotenv.config();
-import credentials from "../config/bucket-formulario-cotel-d426a1133829.json" assert{type:"json"}
+const credentials = JSON.parse(process.env.GOOGLE_CLOUD_CREDENTIALS);
 
 //Configuro credenciales de almacenamiento en google cloud storage
 const storage = new Storage({
