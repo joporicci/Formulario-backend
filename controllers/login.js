@@ -2,8 +2,6 @@ import User from "../models/user.js"
 import createToken from "../libs/createtoken.js";
 import bcrypt from "bcrypt";
 
-
-
 export const loginUser = async (req, res) => {
 
     const { username, password } = req.body;
@@ -51,6 +49,7 @@ export const loginUser = async (req, res) => {
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'none',
         maxAge: 60 * 60 * 1000,
+        path:'/'
       });
   
       res.status(200).json({
@@ -64,18 +63,26 @@ export const loginUser = async (req, res) => {
       res.status(500).json({ message: 'ERR_SERVER_ERROR' });
     }
   };
-  export const logout = async (req, res) => {
-    try {
-      // Invalidar la cookie del token
-      res.clearCookie('token', {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'none',
-      });
-  
-      return res.status(200).json({ message: 'Sesión cerrada correctamente' });
-    } catch (error) {
+  export const logout = (req, res) => {
+    const headers = req.rawHeaders;
+    const cookie = headers.find((element) => element.includes('token='));
 
-      res.status(500).json({ message: 'Error al cerrar sesión', error: error.message });
+    if (!cookie) {
+        return res.status(500).json({ ok: false });
     }
-  };
+    
+    const token = cookie.split('=')[1];
+
+    console.log({ setCookie: res.getHeader('Set-Cookie') });
+    res.cookie('token', '', {
+        httpOnly: true,
+        secure: true,
+        path: '/',
+        sameSite: 'none',
+        maxAge: 1,
+    });
+
+    console.log({ setCookie: res.getHeader('Set-Cookie') });
+
+    res.status(200).json({ message: 'Logout successful.' });
+};
