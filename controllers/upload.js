@@ -5,10 +5,11 @@ import path from "path";
 dotenv.config();
 
 //Configuro credenciales de almacenamiento en google cloud storage
+
 const storage = new Storage({
     projectId: process.env.PROJECT_ID,
-    keyFilename:process.env.GOOGLE_CLOUD_CREDENTIALS
-    });
+    credentials: JSON.parse(process.env.GOOGLE_CLOUD_CREDENTIALS)    
+});
 const bucket = storage.bucket(process.env.GOOGLE_CLOUD_BUCKET_NAME);
 
 // Configuración de Multer Validación de tipos de archivos y generación de almacenamiento
