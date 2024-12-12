@@ -29,8 +29,6 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-
-
 app.use(ExpressMongoSanitize())
 // Rate limiting
 app.set('trust proxy', 1); 

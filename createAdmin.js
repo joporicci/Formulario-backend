@@ -6,8 +6,8 @@ import { connectDB } from "./config/connectdb.js";
 const createAdmin = async () => {
   try {
 
-    const username = "AntonioRoncoroni";
-    const password = "CotelAdmin2024";
+    const username = "MiguelLopez";
+    const password = "Vend2**CU26";
     await connectDB ();
     
 

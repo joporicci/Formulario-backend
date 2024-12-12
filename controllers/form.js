@@ -2,6 +2,7 @@ import Business from '../models/business.js';
 import { formSchema } from '../schema/formSchema.js';
 import User from '../models/user.js';
 import { uploadFileToGCS } from './upload.js';
+import { sendMail } from './sendmail.js';
 
 
 export const createBusiness = async (req, res) => {
@@ -78,6 +79,7 @@ export const createBusiness = async (req, res) => {
     const newBusiness = new Business(businessData);
     await newBusiness.save();
 
+    await sendMail(businessData); // Llamo la función antes de guardar los datos del usuario.
     const foundUser = await User.findById(req.user_id);
     if (foundUser) {
       foundUser.logged = true;
@@ -92,8 +94,10 @@ export const createBusiness = async (req, res) => {
       sameSite: 'none',
       maxAge: 1,
     });
+
     
-    res.status(201).json({ message: "Registraste tu negocio exitosamente", business: newBusiness });
+    
+    return res.status(201).json({ message: "Registraste tu negocio exitosamente", business: newBusiness });
   } catch (error) {
     console.error("Error al procesar la solicitud:", error.message);
     res.status(500).json({ message: "Error interno", error: error.message });
