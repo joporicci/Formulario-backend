@@ -48,7 +48,24 @@ app.use("/api", formRouter);
 // Manejo de errores global
 app.use((err, req, res, next) => {
   console.error(err.stack); // Registro del error en consola
-  res.status(500).json({ ok: false, message: "Error interno del servidor" });
+
+  // Fix rápido para mostrar al usuario si hay errores en la subida de archivos
+  if(err.message){
+    if(err.message == "File too large"){
+      return res.status(400).json({
+        message: "Uno de los archivos excede el tamaño permitido. Se permite como máximo 5MB por archivo",
+       
+      });
+    }else if (err.message.indexOf("Tipo de archivo inválido") !== -1) {
+      return res.status(400).json({
+        message: err.message
+        
+      });
+    }
+  }
+
+ 
+   res.status(500).json({ ok: false, message: "Error interno del servidor" });
 });
 
 // Configuración del puerto

@@ -6,15 +6,26 @@ dotenv.config();
 
 //Configuro credenciales de almacenamiento en google cloud storage
 
-const storage = new Storage({
-    projectId: process.env.PROJECT_ID,
-    credentials: JSON.parse(process.env.GOOGLE_CLOUD_CREDENTIALS)    
-});
-const bucket = storage.bucket(process.env.GOOGLE_CLOUD_BUCKET_NAME);
+// const storage = new Storage({
+//     projectId: process.env.PROJECT_ID,
+//     credentials: JSON.parse(process.env.GOOGLE_CLOUD_CREDENTIALS)    
+// });
+// const bucket = storage.bucket(process.env.GOOGLE_CLOUD_BUCKET_NAME);
 
+const localFolderStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+
+    cb(null, process.env.UPLOADS_FOLDER)
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    cb(null,  uniqueSuffix + '-' + file.originalname)
+  }
+  
+})
 // Configuración de Multer Validación de tipos de archivos y generación de almacenamiento
 export const upload = multer({
-    storage: multer.memoryStorage(),
+    storage: localFolderStorage,
     fileFilter: (req, file, cb) => {
       const ext = path.extname(file.originalname).toLowerCase();
       if (!['.jpg', '.jpeg', '.png'].includes(ext)) {

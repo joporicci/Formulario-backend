@@ -1,4 +1,4 @@
-import createTransporter from "../libs/mailer";
+import createTransporter from "../libs/mailer.js";
 
 export async function sendMail(businessData) {
   const transporter = await createTransporter();
@@ -27,8 +27,9 @@ export async function sendMail(businessData) {
   `;
 
   const mailOptions = {
-    from: process.env.NODEMAILER_EMAIL,
-    to: 'ajroncoroni@gesell.com.ar', // Destinatario
+    from: process.env.NODEMAILER_FROM,
+    // to: 'ajroncoroni@gesell.com.ar', // Destinatario
+    to: process.env.NODEMAILER_TO, // Destinatario
     subject: 'Nuevo negocio registrado',
     html: htmlContent,
   };

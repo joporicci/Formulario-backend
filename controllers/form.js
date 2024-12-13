@@ -7,6 +7,7 @@ import { sendMail } from './sendmail.js';
 
 export const createBusiness = async (req, res) => {
   try {
+
     // Parsear objetos JSON enviados desde el frontend (ya booleanos)
     const paymentMethods = JSON.parse(req.body.paymentMethods || '{}');
     const general = JSON.parse(req.body.general || '{}');
@@ -19,15 +20,18 @@ export const createBusiness = async (req, res) => {
     // Subir archivos (portada y galería)
     let coverPhotoUrl = null;
     if (req.files?.coverPhoto && req.files.coverPhoto[0]) {
-      coverPhotoUrl = await uploadFileToGCS(req.files.coverPhoto[0]);
+    //  coverPhotoUrl = await uploadFileToGCS(req.files.coverPhoto[0]);
+     coverPhotoUrl = process.env.UPLOADS_URL + req.files.coverPhoto[0].filename;
     }
 
     let galleryUrls = [];
     if (req.files?.gallery) {
-      const galleryUploads = req.files.gallery.map((file) => uploadFileToGCS(file));
-      galleryUrls = await Promise.all(galleryUploads);
+      // const galleryUploads = req.files.gallery.map((file) => uploadFileToGCS(file));
+      // galleryUrls = await Promise.all(galleryUploads);
+      galleryUrls = req.files.gallery.map((file) => process.env.UPLOADS_URL + file.filename);
     }
-
+    delete req.body.coverPhoto;
+    delete req.body.gallery;
     // Validar datos usando Joi
     const { error } = formSchema.validate(
       {
@@ -73,7 +77,8 @@ export const createBusiness = async (req, res) => {
       location,
       coverPhoto: coverPhotoUrl || null,
       gallery: galleryUrls,
-      createdBy: req.user_id,
+   //   createdBy: req.user_id,
+      createdBy: '674c93b72a7f4cf7a1ba162a',
     };
 
     const newBusiness = new Business(businessData);

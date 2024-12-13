@@ -1,5 +1,5 @@
-import Business from "../models/business";
-import User from "../models/user";
+import Business from "../models/business.js";
+import User from "../models/user.js";
 
 // Elimino usuarios que esten en la base de datos. Ya sea que hayan enviado información o no.
 
