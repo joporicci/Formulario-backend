@@ -21,7 +21,10 @@ console.log("Base de datos conectada exitosamente.");
 const app = express();
 
 // Middlewares globales
-app.use(express.json({ limit: "10kb" })); // Limita el tamaño del body a 10 KB
+// app.use(express.json({ limit: "10kb" })); // Limita el tamaño del body a 10 KB
+app.use(express.json({limit:'50mb'})); 
+app.use(express.urlencoded({extended:true, limit:'50mb'})); 
+ // Limita el tamaño del body a 10 KB
 const corsOptions = {
   origin:process.env.FRONTEND_URL, // Ajusta a tu dominio
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
